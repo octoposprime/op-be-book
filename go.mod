@@ -1,4 +1,4 @@
-module github.com/octoposprime/op-be-dlr
+module github.com/octoposprime/op-be-book
 
 go 1.20
 

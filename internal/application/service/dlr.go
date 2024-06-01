@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/google/uuid"
-	me "github.com/octoposprime/op-be-dlr/internal/domain/model/entity"
-	mo "github.com/octoposprime/op-be-dlr/internal/domain/model/object"
+	me "github.com/octoposprime/op-be-book/internal/domain/model/entity"
+	mo "github.com/octoposprime/op-be-book/internal/domain/model/object"
 	smodel "github.com/octoposprime/op-be-shared/pkg/model"
 	pb_logging "github.com/octoposprime/op-be-shared/pkg/proto/pb/logging"
 )

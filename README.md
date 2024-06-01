@@ -1,8 +1,8 @@
 # op-book
 The Book Services for the Backend Layer of OctopOSPrime - Computed Microservices
 
-[![Build - Test](https://github.com/octoposprime/op-be-dlr/actions/workflows/ci.yml/badge.svg)](https://github.com/octoposprime/op-be-dlr/actions/workflows/ci.yml)
-[![Docker Image Publish](https://github.com/octoposprime/op-be-dlr/actions/workflows/cd.yml/badge.svg)](https://github.com/octoposprime/op-be-dlr/actions/workflows/cd.yml)
+[![Build - Test](https://github.com/octoposprime/op-be-book/actions/workflows/ci.yml/badge.svg)](https://github.com/octoposprime/op-be-book/actions/workflows/ci.yml)
+[![Docker Image Publish](https://github.com/octoposprime/op-be-book/actions/workflows/cd.yml/badge.svg)](https://github.com/octoposprime/op-be-book/actions/workflows/cd.yml)
 
 ## Pre-Requirements
 

@@ -1,7 +1,7 @@
 package infrastructure
 
 import (
-	mo "github.com/octoposprime/op-be-dlr/internal/domain/model/object"
+	mo "github.com/octoposprime/op-be-book/internal/domain/model/object"
 )
 
 var DlrSortMap map[mo.DlrSortField]string = map[mo.DlrSortField]string{

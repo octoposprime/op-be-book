@@ -3,7 +3,7 @@ package application
 import (
 	"context"
 
-	me "github.com/octoposprime/op-be-dlr/internal/domain/model/entity"
+	me "github.com/octoposprime/op-be-book/internal/domain/model/entity"
 )
 
 // CreateDlr sends the given dlr to the application layer for creating a new dlr.

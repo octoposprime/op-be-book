@@ -5,8 +5,8 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/lib/pq"
-	me "github.com/octoposprime/op-be-dlr/internal/domain/model/entity"
-	mo "github.com/octoposprime/op-be-dlr/internal/domain/model/object"
+	me "github.com/octoposprime/op-be-book/internal/domain/model/entity"
+	mo "github.com/octoposprime/op-be-book/internal/domain/model/object"
 	tgorm "github.com/octoposprime/op-be-shared/tool/gorm"
 )
 

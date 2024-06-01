@@ -3,8 +3,8 @@ package presentation
 import (
 	"net"
 
-	pp_command "github.com/octoposprime/op-be-dlr/internal/application/presentation/port/command"
-	pp_query "github.com/octoposprime/op-be-dlr/internal/application/presentation/port/query"
+	pp_command "github.com/octoposprime/op-be-book/internal/application/presentation/port/command"
+	pp_query "github.com/octoposprime/op-be-book/internal/application/presentation/port/query"
 	pb_dlr "github.com/octoposprime/op-be-shared/pkg/proto/pb/dlr"
 	pb_error "github.com/octoposprime/op-be-shared/pkg/proto/pb/error"
 	tgrpc "github.com/octoposprime/op-be-shared/tool/grpc"

@@ -1,10 +1,10 @@
 package application
 
 import (
-	ip_ebus "github.com/octoposprime/op-be-dlr/internal/application/infrastructure/port/ebus"
-	ip_repo "github.com/octoposprime/op-be-dlr/internal/application/infrastructure/port/repository"
-	ip_service "github.com/octoposprime/op-be-dlr/internal/application/infrastructure/port/service"
-	ds "github.com/octoposprime/op-be-dlr/internal/domain/service"
+	ip_ebus "github.com/octoposprime/op-be-book/internal/application/infrastructure/port/ebus"
+	ip_repo "github.com/octoposprime/op-be-book/internal/application/infrastructure/port/repository"
+	ip_service "github.com/octoposprime/op-be-book/internal/application/infrastructure/port/service"
+	ds "github.com/octoposprime/op-be-book/internal/domain/service"
 )
 
 // Service is an application service.

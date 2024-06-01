@@ -3,7 +3,7 @@ package presentation
 import (
 	"context"
 
-	dto "github.com/octoposprime/op-be-dlr/pkg/presentation/dto"
+	dto "github.com/octoposprime/op-be-book/pkg/presentation/dto"
 	pb_dlr "github.com/octoposprime/op-be-shared/pkg/proto/pb/dlr"
 )
 

@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	me "github.com/octoposprime/op-be-dlr/internal/domain/model/entity"
-	mo "github.com/octoposprime/op-be-dlr/internal/domain/model/object"
+	me "github.com/octoposprime/op-be-book/internal/domain/model/entity"
+	mo "github.com/octoposprime/op-be-book/internal/domain/model/object"
 	pb "github.com/octoposprime/op-be-shared/pkg/proto/pb/dlr"
 	tuuid "github.com/octoposprime/op-be-shared/tool/uuid"
 	"google.golang.org/protobuf/types/known/timestamppb"

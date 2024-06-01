@@ -3,7 +3,7 @@ package application
 import (
 	"context"
 
-	me "github.com/octoposprime/op-be-dlr/internal/domain/model/entity"
+	me "github.com/octoposprime/op-be-book/internal/domain/model/entity"
 	smodel "github.com/octoposprime/op-be-shared/pkg/model"
 	pb_logging "github.com/octoposprime/op-be-shared/pkg/proto/pb/logging"
 )
