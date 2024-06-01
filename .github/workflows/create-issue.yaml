@@ -1,0 +1,20 @@
+name: Assign Project and Member
+on:
+  issues:
+    types:
+      - opened
+jobs:
+  label_issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - run: |
+          gh issue edit "$NUMBER" --add-project "$PROJECT" --add-label "$TEAM_LABELS" --add-label "$FIRST_LABELS"
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          TEAM_LABELS: ${{ secrets.REPO_TEAM }}
+          FIRST_LABELS: ${{ secrets.FIRST_ISSUE_LABELS }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          PROJECT: ${{ secrets.ASSIGN_PROJECT }}
