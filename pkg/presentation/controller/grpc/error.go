@@ -3,7 +3,7 @@ package presentation
 import (
 	"context"
 
-	mo "github.com/octoposprime/op-be-dlr/internal/domain/model/object"
+	mo "github.com/octoposprime/op-be-book/internal/domain/model/object"
 	pb_error "github.com/octoposprime/op-be-shared/pkg/proto/pb/error"
 )
 

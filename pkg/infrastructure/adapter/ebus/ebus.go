@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	me "github.com/octoposprime/op-be-dlr/internal/domain/model/entity"
-	map_ebus "github.com/octoposprime/op-be-dlr/pkg/infrastructure/mapper/ebus"
+	me "github.com/octoposprime/op-be-book/internal/domain/model/entity"
+	map_ebus "github.com/octoposprime/op-be-book/pkg/infrastructure/mapper/ebus"
 	pb "github.com/octoposprime/op-be-shared/pkg/proto/pb/dlr"
 	pb_logging "github.com/octoposprime/op-be-shared/pkg/proto/pb/logging"
 	tredis "github.com/octoposprime/op-be-shared/tool/redis"

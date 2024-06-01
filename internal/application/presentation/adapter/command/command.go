@@ -1,7 +1,7 @@
 package application
 
 import (
-	as "github.com/octoposprime/op-be-dlr/internal/application/service"
+	as "github.com/octoposprime/op-be-book/internal/application/service"
 )
 
 // CommandAdapter is an adapter for Hexagonal Architecture Pattern.

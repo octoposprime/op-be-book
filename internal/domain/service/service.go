@@ -1,7 +1,7 @@
 package domain
 
 import (
-	me "github.com/octoposprime/op-be-dlr/internal/domain/model/entity"
+	me "github.com/octoposprime/op-be-book/internal/domain/model/entity"
 )
 
 // This is the service layer of the domain layer.

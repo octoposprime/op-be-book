@@ -5,7 +5,7 @@ import (
 	"io"
 	"os"
 
-	me "github.com/octoposprime/op-be-dlr/internal/domain/model/entity"
+	me "github.com/octoposprime/op-be-book/internal/domain/model/entity"
 )
 
 type SeedConfig struct {

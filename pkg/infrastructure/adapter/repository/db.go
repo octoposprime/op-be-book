@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/google/uuid"
-	me "github.com/octoposprime/op-be-dlr/internal/domain/model/entity"
-	map_repo "github.com/octoposprime/op-be-dlr/pkg/infrastructure/mapper/repository"
+	me "github.com/octoposprime/op-be-book/internal/domain/model/entity"
+	map_repo "github.com/octoposprime/op-be-book/pkg/infrastructure/mapper/repository"
 	smodel "github.com/octoposprime/op-be-shared/pkg/model"
 	pb_logging "github.com/octoposprime/op-be-shared/pkg/proto/pb/logging"
 	tgorm "github.com/octoposprime/op-be-shared/tool/gorm"

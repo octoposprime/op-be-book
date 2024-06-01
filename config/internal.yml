@@ -8,5 +8,5 @@ grpc:
   logger_port: "18080"
   user_host: "op-be-user"
   user_port: "18080"
-  dlr_host: "op-be-dlr"
+  dlr_host: "op-be-book"
   dlr_port: "18080"
