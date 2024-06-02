@@ -7,8 +7,8 @@ import (
 
 	me "github.com/octoposprime/op-be-book/internal/domain/model/entity"
 	map_ebus "github.com/octoposprime/op-be-book/pkg/infrastructure/mapper/ebus"
-	pb "github.com/octoposprime/op-be-shared/pkg/proto/pb/dlr"
 	pb_logging "github.com/octoposprime/op-be-shared/pkg/proto/pb/logging"
+	pb "github.com/octoposprime/op-be-shared/pkg/proto/pb/page"
 	tredis "github.com/octoposprime/op-be-shared/tool/redis"
 	tserialize "github.com/octoposprime/op-be-shared/tool/serialize"
 )
@@ -37,15 +37,15 @@ func Log(ctx context.Context, logData *pb_logging.LogData) (*pb_logging.LoggingR
 	return &pb_logging.LoggingResult{}, nil
 }
 
-// Listen listens to the redis messaging queue and calls the given callBack function for each received dlr.
-func (a EBusAdapter) Listen(ctx context.Context, channelName string, callBack func(channelName string, dlr me.Dlr)) {
+// Listen listens to the redis messaging queue and calls the given callBack function for each received page.
+func (a EBusAdapter) Listen(ctx context.Context, channelName string, callBack func(channelName string, page me.Page)) {
 	for {
 		result, err := a.redisClient.BLPop(ctx, 0*time.Second, channelName).Result()
 		if err != nil {
 			continue
 		}
 		inChannelName := result[0]
-		dlr := tserialize.SerializeFromJson[*pb.Dlr](result[1])
-		go callBack(inChannelName, *map_ebus.NewDlr(dlr).ToEntity())
+		page := tserialize.SerializeFromJson[*pb.Page](result[1])
+		go callBack(inChannelName, *map_ebus.NewPage(page).ToEntity())
 	}
 }
