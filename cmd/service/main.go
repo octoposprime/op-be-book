@@ -35,7 +35,7 @@ func main() {
 	fmt.Println("dbConfig.PostgresDb.Database", dbConfig.PostgresDb.Database)
 	var err error
 
-	fmt.Println("Starting Dlr Service...")
+	fmt.Println("Starting Book Service...")
 	dbClient, err := tgorm.NewGormClient(tgorm.PostgresGormClient).Connect(dbConfig.PostgresDb.Host, dbConfig.PostgresDb.Port, dbConfig.PostgresDb.UserName, dbConfig.PostgresDb.Password, dbConfig.PostgresDb.Database)
 	if err != nil {
 		panic(err)
@@ -51,7 +51,7 @@ func main() {
 
 	cont := container.New()
 
-	//Domain Dlr Service
+	//Domain Book Service
 	err = cont.Singleton(func() *ds.Service {
 		return ds.NewService()
 	})
@@ -59,7 +59,7 @@ func main() {
 		panic(err)
 	}
 
-	//Infrastructure Dlr Service Adapter
+	//Infrastructure Book Service Adapter
 	err = cont.Singleton(func() ia_service.ServiceAdapter {
 		return ia_service.NewServiceAdapter()
 	})
@@ -67,7 +67,7 @@ func main() {
 		panic(err)
 	}
 
-	//Infrastructure Dlr Db Repository Adapter
+	//Infrastructure Book Db Repository Adapter
 	err = cont.Singleton(func() ia_repo.DbAdapter {
 		return ia_repo.NewDbAdapter(dbClient)
 	})
@@ -75,7 +75,7 @@ func main() {
 		panic(err)
 	}
 
-	//Infrastructure Dlr Redis Repository Adapter
+	//Infrastructure Book Redis Repository Adapter
 	err = cont.Singleton(func() ia_repo.RedisAdapter {
 		return ia_repo.NewRedisAdapter(redisClient)
 	})
@@ -83,7 +83,7 @@ func main() {
 		panic(err)
 	}
 
-	//Infrastructure Dlr EBus Adapter
+	//Infrastructure Book EBus Adapter
 	err = cont.Singleton(func() ia_ebus.EBusAdapter {
 		return ia_ebus.NewEBusAdapter(redisClient)
 	})
@@ -91,7 +91,7 @@ func main() {
 		panic(err)
 	}
 
-	//Application Dlr Service
+	//Application Book Service
 	err = cont.Singleton(func(s *ds.Service, d ia_repo.DbAdapter, r ia_repo.RedisAdapter, e ia_ebus.EBusAdapter, i ia_service.ServiceAdapter) *as.Service {
 		return as.NewService(s, &d, &r, &e, &i)
 	})
@@ -99,7 +99,7 @@ func main() {
 		panic(err)
 	}
 
-	//Application Dlr Query Adapter
+	//Application Book Query Adapter
 	err = cont.Singleton(func(s *as.Service) pa_query.QueryAdapter {
 		return pa_query.NewQueryAdapter(s)
 	})
@@ -107,7 +107,7 @@ func main() {
 		panic(err)
 	}
 
-	//Application Dlr Command Adapter
+	//Application Book Command Adapter
 	err = cont.Singleton(func(s *as.Service) pa_command.CommandAdapter {
 		return pa_command.NewCommandAdapter(s)
 	})
@@ -133,7 +133,7 @@ func main() {
 		go pc_probe.NewProbeAPI().Serve(internalConfig.Restapi.ProbePort)
 	}
 	wg.Add(1)
-	go pc_grpc.NewGrpc(queryHandler, commandHandler).Serve(internalConfig.Grpc.DlrPort)
+	go pc_grpc.NewGrpc(queryHandler, commandHandler).Serve(internalConfig.Grpc.BookPort)
 	wg.Wait()
 
 }
