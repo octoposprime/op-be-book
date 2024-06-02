@@ -8,95 +8,95 @@ import (
 	mo "github.com/octoposprime/op-be-book/internal/domain/model/object"
 )
 
-// Dlr is a struct that represents the entity of a dlr basic values.
-type Dlr struct {
-	Id     uuid.UUID `json:"id"` // Id is the id of the dlr.
-	mo.Dlr           // Dlr is the basic values of the dlr.
+// Page is a struct that represents the entity of a page basic values.
+type Page struct {
+	Id      uuid.UUID `json:"id"` // Id is the id of the page.
+	mo.Page           // Page is the basic values of the page.
 
 	// Only for view
 	CreatedAt time.Time `json:"created_at"` // CreatedAt is the create time.
 	UpdatedAt time.Time `json:"updated_at"` // UpdatedAt is the update time.
 }
 
-// NewDlr creates a new *Dlr.
-func NewDlr(id uuid.UUID,
-	dlr mo.Dlr) *Dlr {
-	return &Dlr{
-		Id:  id,
-		Dlr: dlr,
+// NewPage creates a new *Page.
+func NewPage(id uuid.UUID,
+	page mo.Page) *Page {
+	return &Page{
+		Id:   id,
+		Page: page,
 	}
 }
 
-// NewEmptyDlr creates a new *Dlr with empty values.
-func NewEmptyDlr() *Dlr {
-	return &Dlr{
-		Id:  uuid.UUID{},
-		Dlr: *mo.NewEmptyDlr(),
+// NewEmptyPage creates a new *Page with empty values.
+func NewEmptyPage() *Page {
+	return &Page{
+		Id:   uuid.UUID{},
+		Page: *mo.NewEmptyPage(),
 	}
 }
 
-// String returns a string representation of the Dlr.
-func (s *Dlr) String() string {
+// String returns a string representation of the Page.
+func (s *Page) String() string {
 	return fmt.Sprintf("Id: %v, "+
-		"Dlr: %v",
+		"Page: %v",
 		s.Id,
-		s.Dlr)
+		s.Page)
 }
 
-// Equals returns true if the Dlr is equal to the other Dlr.
-func (s *Dlr) Equals(other *Dlr) bool {
+// Equals returns true if the Page is equal to the other Page.
+func (s *Page) Equals(other *Page) bool {
 	if s.Id != other.Id {
 		return false
 	}
-	if !s.Dlr.Equals(&other.Dlr) {
+	if !s.Page.Equals(&other.Page) {
 		return false
 	}
 	return true
 }
 
-// Clone returns a clone of the Dlr.
-func (s *Dlr) Clone() *Dlr {
-	return &Dlr{
-		Id:  s.Id,
-		Dlr: *s.Dlr.Clone(),
+// Clone returns a clone of the Page.
+func (s *Page) Clone() *Page {
+	return &Page{
+		Id:   s.Id,
+		Page: *s.Page.Clone(),
 	}
 }
 
-// IsEmpty returns true if the Dlr is empty.
-func (s *Dlr) IsEmpty() bool {
+// IsEmpty returns true if the Page is empty.
+func (s *Page) IsEmpty() bool {
 	if s.Id.String() != "" && s.Id != (uuid.UUID{}) {
 		return false
 	}
-	if !s.Dlr.IsEmpty() {
+	if !s.Page.IsEmpty() {
 		return false
 	}
 	return true
 }
 
-// IsNotEmpty returns true if the Dlr is not empty.
-func (s *Dlr) IsNotEmpty() bool {
+// IsNotEmpty returns true if the Page is not empty.
+func (s *Page) IsNotEmpty() bool {
 	return !s.IsEmpty()
 }
 
-// Clear clears the Dlr.
-func (s *Dlr) Clear() {
+// Clear clears the Page.
+func (s *Page) Clear() {
 	s.Id = uuid.UUID{}
-	s.Dlr.Clear()
+	s.Page.Clear()
 }
 
-// Validate validates the Dlr.
-func (s *Dlr) Validate() error {
+// Validate validates the Page.
+func (s *Page) Validate() error {
 	if s.IsEmpty() {
-		return mo.ErrorDlrIsEmpty
+		return mo.ErrorPageIsEmpty
 	}
-	if err := s.Dlr.Validate(); err != nil {
+	if err := s.Page.Validate(); err != nil {
 		return err
 	}
 	return nil
 }
 
-// Dlrs contains a slice of *Dlr and total number of dlrs.
-type Dlrs struct {
-	Dlrs      []Dlr `json:"dlrs"`       // Dlrs is the slice of *Dlr.
-	TotalRows int64 `json:"total_rows"` // TotalRows is the total number of rows.
+// Pages contains a slice of *Page and total number of pages.
+type Pages struct {
+	Pages     []Page `json:"pages"`      // Pages is the slice of *Page.
+	TotalRows int64  `json:"total_rows"` // TotalRows is the total number of rows.
 }

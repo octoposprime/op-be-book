@@ -8,14 +8,14 @@ import (
 
 var ERRORS []error = []error{
 	ErrorNone,
-	ErrorDlrIsEmpty,
-	ErrorDlrDlrDataIsEmpty,
+	ErrorPageIsEmpty,
+	ErrorPagePageDataIsEmpty,
 }
 
 const (
-	ErrId      string = "id"
-	ErrDlr     string = "dlr"
-	ErrDlrData string = "dlrdata"
+	ErrId       string = "id"
+	ErrPage     string = "page"
+	ErrPageData string = "pagedata"
 )
 
 const (
@@ -28,9 +28,9 @@ const (
 )
 
 var (
-	ErrorNone              error = nil
-	ErrorDlrIsEmpty        error = errors.New(smodel.ErrBase + smodel.ErrSep + ErrDlr + smodel.ErrSep + ErrEmpty)
-	ErrorDlrDlrDataIsEmpty error = errors.New(smodel.ErrBase + smodel.ErrSep + ErrDlr + smodel.ErrSep + ErrDlrData + smodel.ErrSep + ErrEmpty)
+	ErrorNone                error = nil
+	ErrorPageIsEmpty         error = errors.New(smodel.ErrBase + smodel.ErrSep + ErrPage + smodel.ErrSep + ErrEmpty)
+	ErrorPagePageDataIsEmpty error = errors.New(smodel.ErrBase + smodel.ErrSep + ErrPage + smodel.ErrSep + ErrPageData + smodel.ErrSep + ErrEmpty)
 )
 
 func GetErrors() []error {

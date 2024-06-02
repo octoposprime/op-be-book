@@ -1,8 +1,8 @@
 package domain
 
-// DlrType is a type that represents the type of a dlr.
-type DlrType int8
+// PageType is a type that represents the type of a page.
+type PageType int8
 
 const (
-	DlrTypeNONE DlrType = iota
+	PageTypeNONE PageType = iota
 )

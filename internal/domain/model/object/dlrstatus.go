@@ -1,10 +1,10 @@
 package domain
 
-// DlrStatus is a status that represents the status of a dlr.
-type DlrStatus int8
+// PageStatus is a status that represents the status of a page.
+type PageStatus int8
 
 const (
-	DlrStatusNONE DlrStatus = iota
-	DlrStatusACTIVE
-	DlrStatusINACTIVE
+	PageStatusNONE PageStatus = iota
+	PageStatusACTIVE
+	PageStatusINACTIVE
 )

@@ -8,32 +8,32 @@ import (
 	mo "github.com/octoposprime/op-be-book/internal/domain/model/object"
 )
 
-// DlrFilter is a struct that represents the filter of a dlr.
-type DlrFilter struct {
-	Id        uuid.UUID    `json:"id"`         // Id is the id of the dlr.
-	DlrData   string       `json:"dlr_name"`   // DlrData is the dlr name of the dlr.
-	DlrType   mo.DlrType   `json:"dlr_type"`   // DlrType is the type of the dlr.
-	DlrStatus mo.DlrStatus `json:"dlr_status"` // DlrStatus is the status of the dlr.
-	Tags      []string     `json:"tags"`       // Tags is the tags of the dlr.
+// PageFilter is a struct that represents the filter of a page.
+type PageFilter struct {
+	Id         uuid.UUID     `json:"id"`          // Id is the id of the page.
+	PageData   string        `json:"page_name"`   // PageData is the page name of the page.
+	PageType   mo.PageType   `json:"page_type"`   // PageType is the type of the page.
+	PageStatus mo.PageStatus `json:"page_status"` // PageStatus is the status of the page.
+	Tags       []string      `json:"tags"`        // Tags is the tags of the page.
 
 	CreatedAtFrom time.Time `json:"created_at_from"` // CreatedAt is in the between of CreatedAtFrom and CreatedAtTo.
 	CreatedAtTo   time.Time `json:"created_at_to"`   // CreatedAt is in the between of CreatedAtFrom and CreatedAtTo.
 	UpdatedAtFrom time.Time `json:"updated_at_from"` // UpdatedAt is in the between of UpdatedAtFrom and UpdatedAtTo.
 	UpdatedAtTo   time.Time `json:"updated_at_to"`   // UpdatedAt is in the between of UpdatedAtFrom and UpdatedAtTo.
 
-	SearchText string          `json:"search_text"` // SearchText is the full-text search value.
-	SortType   string          `json:"sort_type"`   // SortType is the sorting type (ASC,DESC).
-	SortField  mo.DlrSortField `json:"sort_field"`  // SortField is the sorting field of the dlr.
+	SearchText string           `json:"search_text"` // SearchText is the full-text search value.
+	SortType   string           `json:"sort_type"`   // SortType is the sorting type (ASC,DESC).
+	SortField  mo.PageSortField `json:"sort_field"`  // SortField is the sorting field of the page.
 
 	Limit  int `json:"limit"`  // Limit provides to limitation row size.
 	Offset int `json:"offset"` // Offset provides a starting row number of the limitation.
 }
 
-// NewDlrFilter creates a new *DlrFilter.
-func NewDlrFilter(id uuid.UUID,
-	dlrData string,
-	dlrType mo.DlrType,
-	dlrStatus mo.DlrStatus,
+// NewPageFilter creates a new *PageFilter.
+func NewPageFilter(id uuid.UUID,
+	pageData string,
+	pageType mo.PageType,
+	pageStatus mo.PageStatus,
 	tags []string,
 	createdAtFrom time.Time,
 	createdAtTo time.Time,
@@ -41,14 +41,14 @@ func NewDlrFilter(id uuid.UUID,
 	updatedAtTo time.Time,
 	searchText string,
 	sortType string,
-	sortField mo.DlrSortField,
+	sortField mo.PageSortField,
 	limit int,
-	offset int) *DlrFilter {
-	return &DlrFilter{
+	offset int) *PageFilter {
+	return &PageFilter{
 		Id:            id,
-		DlrData:       dlrData,
-		DlrType:       dlrType,
-		DlrStatus:     dlrStatus,
+		PageData:      pageData,
+		PageType:      pageType,
+		PageStatus:    pageStatus,
 		Tags:          tags,
 		CreatedAtFrom: createdAtFrom,
 		CreatedAtTo:   createdAtTo,
@@ -62,13 +62,13 @@ func NewDlrFilter(id uuid.UUID,
 	}
 }
 
-// NewEmptyDlrFilter creates a new *DlrFilter with empty values.
-func NewEmptyDlrFilter() *DlrFilter {
-	return &DlrFilter{
+// NewEmptyPageFilter creates a new *PageFilter with empty values.
+func NewEmptyPageFilter() *PageFilter {
+	return &PageFilter{
 		Id:            uuid.UUID{},
-		DlrData:       "",
-		DlrType:       mo.DlrTypeNONE,
-		DlrStatus:     mo.DlrStatusNONE,
+		PageData:      "",
+		PageType:      mo.PageTypeNONE,
+		PageStatus:    mo.PageStatusNONE,
 		Tags:          []string{},
 		CreatedAtFrom: time.Time{},
 		CreatedAtTo:   time.Time{},
@@ -76,18 +76,18 @@ func NewEmptyDlrFilter() *DlrFilter {
 		UpdatedAtTo:   time.Time{},
 		SearchText:    "",
 		SortType:      "",
-		SortField:     mo.DlrSortFieldNONE,
+		SortField:     mo.PageSortFieldNONE,
 		Limit:         0,
 		Offset:        0,
 	}
 }
 
-// String returns a string representation of the DlrFilter.
-func (s *DlrFilter) String() string {
+// String returns a string representation of the PageFilter.
+func (s *PageFilter) String() string {
 	return fmt.Sprintf("Id: %v, "+
-		"DlrData: %v, "+
-		"DlrType: %v, "+
-		"DlrStatus: %v, "+
+		"PageData: %v, "+
+		"PageType: %v, "+
+		"PageStatus: %v, "+
 		"Tags: %v, "+
 		"CreatedAtFrom: %v, "+
 		"CreatedAtTo: %v, "+
@@ -99,9 +99,9 @@ func (s *DlrFilter) String() string {
 		"Limit: %v, "+
 		"Offset: %v",
 		s.Id,
-		s.DlrData,
-		s.DlrType,
-		s.DlrStatus,
+		s.PageData,
+		s.PageType,
+		s.PageStatus,
 		s.Tags,
 		s.CreatedAtFrom,
 		s.CreatedAtTo,
