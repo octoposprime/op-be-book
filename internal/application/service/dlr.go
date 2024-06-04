@@ -10,27 +10,27 @@ import (
 	pb_logging "github.com/octoposprime/op-be-shared/pkg/proto/pb/logging"
 )
 
-// GetDlrsByFilter returns the dlrs that match the given filter.
-func (a *Service) GetDlrsByFilter(ctx context.Context, dlrFilter me.DlrFilter) (me.Dlrs, error) {
-	return a.DbPort.GetDlrsByFilter(ctx, dlrFilter)
+// GetPagesByFilter returns the pages that match the given filter.
+func (a *Service) GetPagesByFilter(ctx context.Context, pageFilter me.PageFilter) (me.Pages, error) {
+	return a.DbPort.GetPagesByFilter(ctx, pageFilter)
 }
 
-// CreateDlr sends the given dlr to the repository of the infrastructure layer for creating a new dlr.
-func (a *Service) CreateDlr(ctx context.Context, dlr me.Dlr) (me.Dlr, error) {
-	dlr.Id = uuid.UUID{}
-	if err := a.ValidateDlr(&dlr); err != nil {
+// CreatePage sends the given page to the repository of the infrastructure layer for creating a new page.
+func (a *Service) CreatePage(ctx context.Context, page me.Page) (me.Page, error) {
+	page.Id = uuid.UUID{}
+	if err := a.ValidatePage(&page); err != nil {
 		userId, _ := ctx.Value(smodel.QueryKeyUid).(string)
-		go a.Log(context.Background(), me.NewLogData().GenerateLogData(pb_logging.LogType_LogTypeERROR, "CreateDlr", userId, err.Error()))
-		return me.Dlr{}, err
+		go a.Log(context.Background(), me.NewLogData().GenerateLogData(pb_logging.LogType_LogTypeERROR, "CreatePage", userId, err.Error()))
+		return me.Page{}, err
 	}
-	if dlr.DlrStatus == mo.DlrStatusNONE {
-		dlr.DlrStatus = mo.DlrStatusACTIVE
+	if page.PageStatus == mo.PageStatusNONE {
+		page.PageStatus = mo.PageStatusACTIVE
 	}
-	return a.DbPort.SaveDlr(ctx, dlr)
+	return a.DbPort.SavePage(ctx, page)
 }
 
-// UpdateDlrBase sends the given base values of the dlr to the repository of the infrastructure layer for updating base values of dlr data.
-func (a *Service) UpdateDlrBase(ctx context.Context, dlr me.Dlr) (me.Dlr, error) {
+// UpdatePageBase sends the given base values of the page to the repository of the infrastructure layer for updating base values of page data.
+func (a *Service) UpdatePageBase(ctx context.Context, page me.Page) (me.Page, error) {
 	if user.Id.String() == "" || user.Id == (uuid.UUID{}) {
 		err := mo.ErrorUserIdIsEmpty
 		userId, _ := ctx.Value(smodel.QueryKeyUid).(string)
@@ -48,7 +48,7 @@ func (a *Service) UpdateDlrBase(ctx context.Context, dlr me.Dlr) (me.Dlr, error)
 	if users.TotalRows > 0 {
 		dbUser := users.Users[0]
 		dbUser.Tags = user.Tags
-		dbUser.DlrType = user.DlrType
+		dbUser.PageType = user.PageType
 		if err := a.ValidateUser(&dbUser); err != nil {
 			userId, _ := ctx.Value(smodel.QueryKeyUid).(string)
 			go a.Log(context.Background(), me.NewLogData().GenerateLogData(pb_logging.LogType_LogTypeERROR, "UpdateUserStatus", userId, err.Error()))
@@ -60,8 +60,8 @@ func (a *Service) UpdateDlrBase(ctx context.Context, dlr me.Dlr) (me.Dlr, error)
 	}
 }
 
-// UpdateDlrCore sends the given core values of the dlr to the repository of the infrastructure layer for updating core values of dlr data.
-func (a *Service) UpdateDlrCore(ctx context.Context, dlr me.Dlr) (me.Dlr, error) {
+// UpdatePageCore sends the given core values of the page to the repository of the infrastructure layer for updating core values of page data.
+func (a *Service) UpdatePageCore(ctx context.Context, page me.Page) (me.Page, error) {
 	if user.Id.String() == "" || user.Id == (uuid.UUID{}) {
 		err := mo.ErrorUserIdIsEmpty
 		userId, _ := ctx.Value(smodel.QueryKeyUid).(string)
@@ -78,7 +78,7 @@ func (a *Service) UpdateDlrCore(ctx context.Context, dlr me.Dlr) (me.Dlr, error)
 	}
 	if users.TotalRows > 0 {
 		dbUser := users.Users[0]
-		dbUser.DlrData = user.DlrData
+		dbUser.PageData = user.PageData
 		if err := a.ValidateUser(&dbUser); err != nil {
 			userId, _ := ctx.Value(smodel.QueryKeyUid).(string)
 			go a.Log(context.Background(), me.NewLogData().GenerateLogData(pb_logging.LogType_LogTypeERROR, "UpdateUserStatus", userId, err.Error()))
@@ -90,8 +90,8 @@ func (a *Service) UpdateDlrCore(ctx context.Context, dlr me.Dlr) (me.Dlr, error)
 	}
 }
 
-// UpdateDlrStatus sends the given status value of the dlr to the repository of the infrastructure layer for updating status of dlr data.
-func (a *Service) UpdateDlrStatus(ctx context.Context, dlr me.Dlr) (me.Dlr, error) {
+// UpdatePageStatus sends the given status value of the page to the repository of the infrastructure layer for updating status of page data.
+func (a *Service) UpdatePageStatus(ctx context.Context, page me.Page) (me.Page, error) {
 	if user.Id.String() == "" || user.Id == (uuid.UUID{}) {
 		err := mo.ErrorUserIdIsEmpty
 		userId, _ := ctx.Value(smodel.QueryKeyUid).(string)
@@ -120,15 +120,15 @@ func (a *Service) UpdateDlrStatus(ctx context.Context, dlr me.Dlr) (me.Dlr, erro
 	}
 }
 
-// DeleteDlr sends the given dlr to the repository of the infrastructure layer for deleting data.
-func (a *Service) DeleteDlr(ctx context.Context, dlr me.Dlr) (me.Dlr, error) {
+// DeletePage sends the given page to the repository of the infrastructure layer for deleting data.
+func (a *Service) DeletePage(ctx context.Context, page me.Page) (me.Page, error) {
 	var err error
-	dlr, err = a.DbPort.DeleteDlr(ctx, dlr)
+	page, err = a.DbPort.DeletePage(ctx, page)
 	if err != nil {
-		dlrId, _ := ctx.Value(smodel.QueryKeyUid).(string)
-		go a.Log(context.Background(), me.NewLogData().GenerateLogData(pb_logging.LogType_LogTypeERROR, "DeleteDlr", dlrId, err.Error()))
-		return me.Dlr{}, err
+		pageId, _ := ctx.Value(smodel.QueryKeyUid).(string)
+		go a.Log(context.Background(), me.NewLogData().GenerateLogData(pb_logging.LogType_LogTypeERROR, "DeletePage", pageId, err.Error()))
+		return me.Page{}, err
 	}
 
-	return dlr, err
+	return page, err
 }

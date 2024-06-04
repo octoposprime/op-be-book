@@ -9,9 +9,9 @@ import (
 )
 
 type SeedConfig struct {
-	Dlrs []struct {
-		Dlr me.Dlr `json:"dlr"`
-	} `json:"dlrs"`
+	Pages []struct {
+		Page me.Page `json:"page"`
+	} `json:"pages"`
 }
 
 var SeedConfigPath string = "config/seed.json"
