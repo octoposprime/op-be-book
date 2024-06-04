@@ -8,19 +8,19 @@ import (
 
 // CommandPort is a port for Hexagonal Architecture Pattern.
 // It is used to communicate with the application layer.
-type DlrCommandPort interface {
-	// CreateDlr sends the given dlr to the application layer for creating a new dlr.
-	CreateDlr(ctx context.Context, dlr me.Dlr) (me.Dlr, error)
+type PageCommandPort interface {
+	// CreatePage sends the given page to the application layer for creating a new page.
+	CreatePage(ctx context.Context, page me.Page) (me.Page, error)
 
-	// UpdateDlrBase sends the given base values of the dlr to the repository of the infrastructure layer for updating base values of dlr data.
-	UpdateDlrBase(ctx context.Context, dlr me.Dlr) (me.Dlr, error)
+	// UpdatePageBase sends the given base values of the page to the repository of the infrastructure layer for updating base values of page data.
+	UpdatePageBase(ctx context.Context, page me.Page) (me.Page, error)
 
-	// UpdateDlrCore sends the given core values of the dlr to the repository of the infrastructure layer for updating core values of dlr data.
-	UpdateDlrCore(ctx context.Context, dlr me.Dlr) (me.Dlr, error)
+	// UpdatePageCore sends the given core values of the page to the repository of the infrastructure layer for updating core values of page data.
+	UpdatePageCore(ctx context.Context, page me.Page) (me.Page, error)
 
-	// UpdateDlrStatus sends the given status value of the dlr to the repository of the infrastructure layer for updating status of dlr data.
-	UpdateDlrStatus(ctx context.Context, dlr me.Dlr) (me.Dlr, error)
+	// UpdatePageStatus sends the given status value of the page to the repository of the infrastructure layer for updating status of page data.
+	UpdatePageStatus(ctx context.Context, page me.Page) (me.Page, error)
 
-	// DeleteDlr sends the given dlr to the application layer for deleting data.
-	DeleteDlr(ctx context.Context, dlr me.Dlr) (me.Dlr, error)
+	// DeletePage sends the given page to the application layer for deleting data.
+	DeletePage(ctx context.Context, page me.Page) (me.Page, error)
 }

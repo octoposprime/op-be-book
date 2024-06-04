@@ -6,27 +6,27 @@ import (
 	me "github.com/octoposprime/op-be-book/internal/domain/model/entity"
 )
 
-// CreateDlr sends the given dlr to the application layer for creating a new dlr.
-func (a CommandAdapter) CreateDlr(ctx context.Context, dlr me.Dlr) (me.Dlr, error) {
-	return a.Service.CreateDlr(ctx, dlr)
+// CreatePage sends the given page to the application layer for creating a new page.
+func (a CommandAdapter) CreatePage(ctx context.Context, page me.Page) (me.Page, error) {
+	return a.Service.CreatePage(ctx, page)
 }
 
-// UpdateDlrBase sends the given base values of the dlr to the repository of the infrastructure layer for updating base values of dlr data.
-func (a CommandAdapter) UpdateDlrBase(ctx context.Context, dlr me.Dlr) (me.Dlr, error) {
-	return a.Service.UpdateDlrBase(ctx, dlr)
+// UpdatePageBase sends the given base values of the page to the repository of the infrastructure layer for updating base values of page data.
+func (a CommandAdapter) UpdatePageBase(ctx context.Context, page me.Page) (me.Page, error) {
+	return a.Service.UpdatePageBase(ctx, page)
 }
 
-// UpdateDlrCore sends the given core values of the dlr to the repository of the infrastructure layer for updating core values of dlr data.
-func (a CommandAdapter) UpdateDlrCore(ctx context.Context, dlr me.Dlr) (me.Dlr, error) {
-	return a.Service.UpdateDlrCore(ctx, dlr)
+// UpdatePageCore sends the given core values of the page to the repository of the infrastructure layer for updating core values of page data.
+func (a CommandAdapter) UpdatePageCore(ctx context.Context, page me.Page) (me.Page, error) {
+	return a.Service.UpdatePageCore(ctx, page)
 }
 
-// UpdateDlrStatus sends the given status value of the dlr to the repository of the infrastructure layer for updating status of dlr data.
-func (a CommandAdapter) UpdateDlrStatus(ctx context.Context, dlr me.Dlr) (me.Dlr, error) {
-	return a.Service.UpdateDlrStatus(ctx, dlr)
+// UpdatePageStatus sends the given status value of the page to the repository of the infrastructure layer for updating status of page data.
+func (a CommandAdapter) UpdatePageStatus(ctx context.Context, page me.Page) (me.Page, error) {
+	return a.Service.UpdatePageStatus(ctx, page)
 }
 
-// DeleteDlr sends the given dlr to the application layer for deleting data.
-func (a CommandAdapter) DeleteDlr(ctx context.Context, dlr me.Dlr) (me.Dlr, error) {
-	return a.Service.DeleteDlr(ctx, dlr)
+// DeletePage sends the given page to the application layer for deleting data.
+func (a CommandAdapter) DeletePage(ctx context.Context, page me.Page) (me.Page, error) {
+	return a.Service.DeletePage(ctx, page)
 }
