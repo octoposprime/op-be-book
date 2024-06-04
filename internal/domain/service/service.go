@@ -13,9 +13,9 @@ func NewService() *Service {
 	return &Service{}
 }
 
-// ValidateDlr validates the dlr.
-func (s *Service) ValidateDlr(dlr *me.Dlr) error {
-	if err := dlr.Validate(); err != nil {
+// ValidatePage validates the page.
+func (s *Service) ValidatePage(page *me.Page) error {
+	if err := page.Validate(); err != nil {
 		return err
 	}
 	return nil
