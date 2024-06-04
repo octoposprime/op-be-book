@@ -7,28 +7,28 @@ import (
 	"github.com/google/uuid"
 	me "github.com/octoposprime/op-be-book/internal/domain/model/entity"
 	mo "github.com/octoposprime/op-be-book/internal/domain/model/object"
-	pb "github.com/octoposprime/op-be-shared/pkg/proto/pb/dlr"
+	pb "github.com/octoposprime/op-be-shared/pkg/proto/pb/page"
 	tuuid "github.com/octoposprime/op-be-shared/tool/uuid"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-// DlrFilter is a struct that represents the filter dto of a dlr.
-type DlrFilter struct {
-	proto *pb.DlrFilter
+// PageFilter is a struct that represents the filter dto of a page.
+type PageFilter struct {
+	proto *pb.PageFilter
 }
 
-// NewDlrFilter creates a new *DlrFilter.
-func NewDlrFilter(pb *pb.DlrFilter) *DlrFilter {
-	return &DlrFilter{
+// NewPageFilter creates a new *PageFilter.
+func NewPageFilter(pb *pb.PageFilter) *PageFilter {
+	return &PageFilter{
 		proto: pb,
 	}
 }
 
-// String returns a string representation of the DlrFilter.
-func (s *DlrFilter) String() string {
+// String returns a string representation of the PageFilter.
+func (s *PageFilter) String() string {
 	return fmt.Sprintf("Id: %v, "+
-		"DlrType: %v, "+
-		"DlrStatus: %v, "+
+		"PageType: %v, "+
+		"PageStatus: %v, "+
 		"Tags: %v, "+
 		"CreatedAtFrom: %v, "+
 		"CreatedAtTo: %v, "+
@@ -40,8 +40,8 @@ func (s *DlrFilter) String() string {
 		"Limit: %v, "+
 		"Offset: %v",
 		s.proto.Id,
-		s.proto.DlrType,
-		s.proto.DlrStatus,
+		s.proto.PageType,
+		s.proto.PageStatus,
 		s.proto.Tags,
 		s.proto.CreatedAtFrom,
 		s.proto.CreatedAtTo,
@@ -54,11 +54,11 @@ func (s *DlrFilter) String() string {
 		s.proto.Offset)
 }
 
-// NewDlrFilterFromEntity creates a new *DlrFilter from entity.
-func NewDlrFilterFromEntity(entity me.DlrFilter) *DlrFilter {
+// NewPageFilterFromEntity creates a new *PageFilter from entity.
+func NewPageFilterFromEntity(entity me.PageFilter) *PageFilter {
 	id := entity.Id.String()
-	dlrType := pb.DlrType(entity.DlrType)
-	dlrStatus := pb.DlrStatus(entity.DlrStatus)
+	pageType := pb.PageType(entity.PageType)
+	pageStatus := pb.PageStatus(entity.PageStatus)
 	tags := entity.Tags
 	createdAtFrom := timestamppb.New(entity.CreatedAtFrom)
 	createdAtTo := timestamppb.New(entity.CreatedAtTo)
@@ -66,14 +66,14 @@ func NewDlrFilterFromEntity(entity me.DlrFilter) *DlrFilter {
 	updatedAtTo := timestamppb.New(entity.UpdatedAtTo)
 	searchText := entity.SearchText
 	sortType := entity.SortType
-	sortField := pb.DlrSortField(entity.SortField)
+	sortField := pb.PageSortField(entity.SortField)
 	limit := int32(entity.Limit)
 	offset := int32(entity.Offset)
-	return &DlrFilter{
-		&pb.DlrFilter{
+	return &PageFilter{
+		&pb.PageFilter{
 			Id:            &id,
-			DlrType:       &dlrType,
-			DlrStatus:     &dlrStatus,
+			PageType:       &pageType,
+			PageStatus:     &pageStatus,
 			Tags:          tags,
 			CreatedAtFrom: createdAtFrom,
 			CreatedAtTo:   createdAtTo,
@@ -88,19 +88,19 @@ func NewDlrFilterFromEntity(entity me.DlrFilter) *DlrFilter {
 	}
 }
 
-// ToEntity returns a entity representation of the DlrFilter.
-func (s *DlrFilter) ToEntity() *me.DlrFilter {
+// ToEntity returns a entity representation of the PageFilter.
+func (s *PageFilter) ToEntity() *me.PageFilter {
 	id := uuid.UUID{}
 	if s.proto.Id != nil {
 		id = tuuid.FromString(*s.proto.Id)
 	}
-	dlrType := 0
-	if s.proto.DlrType != nil {
-		dlrType = int(*s.proto.DlrType)
+	pageType := 0
+	if s.proto.PageType != nil {
+		pageType = int(*s.proto.PageType)
 	}
-	dlrStatus := 0
-	if s.proto.DlrStatus != nil {
-		dlrStatus = int(*s.proto.DlrStatus)
+	pageStatus := 0
+	if s.proto.PageStatus != nil {
+		pageStatus = int(*s.proto.PageStatus)
 	}
 	tags := []string{}
 	if s.proto.Tags != nil {
@@ -142,10 +142,10 @@ func (s *DlrFilter) ToEntity() *me.DlrFilter {
 	if s.proto.Offset != nil {
 		offset = int(*s.proto.Offset)
 	}
-	return &me.DlrFilter{
+	return &me.PageFilter{
 		Id:            id,
-		DlrType:       mo.DlrType(dlrType),
-		DlrStatus:     mo.DlrStatus(dlrStatus),
+		PageType:       mo.PageType(pageType),
+		PageStatus:     mo.PageStatus(pageStatus),
 		Tags:          tags,
 		CreatedAtFrom: createdAtFrom,
 		CreatedAtTo:   createdAtTo,
@@ -153,7 +153,7 @@ func (s *DlrFilter) ToEntity() *me.DlrFilter {
 		UpdatedAtTo:   updatedAtTo,
 		SearchText:    searchText,
 		SortType:      sortType,
-		SortField:     mo.DlrSortField(sortField),
+		SortField:     mo.PageSortField(sortField),
 		Limit:         limit,
 		Offset:        offset,
 	}
