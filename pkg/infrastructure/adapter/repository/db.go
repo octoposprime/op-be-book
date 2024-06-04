@@ -22,7 +22,7 @@ func NewDbAdapter(dbClient *tgorm.GormClient) DbAdapter {
 		Log,
 	}
 
-	err := dbClient.DbClient.AutoMigrate(&map_repo.Dlr{})
+	err := dbClient.DbClient.AutoMigrate(&map_repo.Page{})
 	if err != nil {
 		panic(err)
 	}
@@ -35,106 +35,106 @@ func (a *DbAdapter) SetLogger(LoggerFunc func(ctx context.Context, logData *pb_l
 	a.Log = LoggerFunc
 }
 
-// GetDlrsByFilter returns the dlrs that match the given filter.
-func (a DbAdapter) GetDlrsByFilter(ctx context.Context, dlrFilter me.DlrFilter) (me.Dlrs, error) {
-	var dlrsDbMapper map_repo.Dlrs
-	var filter map_repo.Dlr
+// GetPagesByFilter returns the pages that match the given filter.
+func (a DbAdapter) GetPagesByFilter(ctx context.Context, pageFilter me.PageFilter) (me.Pages, error) {
+	var pagesDbMapper map_repo.Pages
+	var filter map_repo.Page
 	qry := a.DbClient
-	if dlrFilter.Id.String() != "" && dlrFilter.Id != (uuid.UUID{}) {
-		filter.ID = dlrFilter.Id
+	if pageFilter.Id.String() != "" && pageFilter.Id != (uuid.UUID{}) {
+		filter.ID = pageFilter.Id
 	}
-	if dlrFilter.DlrData != "" {
-		filter.DlrData = dlrFilter.DlrData
+	if pageFilter.PageData != "" {
+		filter.PageData = pageFilter.PageData
 	}
-	if dlrFilter.DlrType != 0 {
-		filter.DlrType = int(dlrFilter.DlrType)
+	if pageFilter.PageType != 0 {
+		filter.PageType = int(pageFilter.PageType)
 	}
-	if dlrFilter.DlrStatus != 0 {
-		filter.DlrStatus = int(dlrFilter.DlrStatus)
+	if pageFilter.PageStatus != 0 {
+		filter.PageStatus = int(pageFilter.PageStatus)
 	}
-	if len(dlrFilter.Tags) > 0 {
-		filter.Tags = dlrFilter.Tags
+	if len(pageFilter.Tags) > 0 {
+		filter.Tags = pageFilter.Tags
 	}
-	if !dlrFilter.CreatedAtFrom.IsZero() && !dlrFilter.CreatedAtTo.IsZero() {
-		qry = qry.Where("created_at between ? and ?", dlrFilter.CreatedAtFrom, dlrFilter.CreatedAtTo)
+	if !pageFilter.CreatedAtFrom.IsZero() && !pageFilter.CreatedAtTo.IsZero() {
+		qry = qry.Where("created_at between ? and ?", pageFilter.CreatedAtFrom, pageFilter.CreatedAtTo)
 	}
-	if !dlrFilter.UpdatedAtFrom.IsZero() && !dlrFilter.UpdatedAtTo.IsZero() {
-		qry = qry.Where("updated_at between ? and ?", dlrFilter.UpdatedAtFrom, dlrFilter.UpdatedAtTo)
+	if !pageFilter.UpdatedAtFrom.IsZero() && !pageFilter.UpdatedAtTo.IsZero() {
+		qry = qry.Where("updated_at between ? and ?", pageFilter.UpdatedAtFrom, pageFilter.UpdatedAtTo)
 	}
-	if dlrFilter.SearchText != "" {
+	if pageFilter.SearchText != "" {
 		qry = qry.Where(
-			qry.Where("UPPER(dlr_name) LIKE UPPER(?)", "%"+dlrFilter.SearchText+"%").
-				Or("UPPER(email) LIKE UPPER(?)", "%"+dlrFilter.SearchText+"%").
-				Or("UPPER(array_to_string(tags, ',')) LIKE UPPER(?)", "%"+dlrFilter.SearchText+"%"),
+			qry.Where("UPPER(page_name) LIKE UPPER(?)", "%"+pageFilter.SearchText+"%").
+				Or("UPPER(email) LIKE UPPER(?)", "%"+pageFilter.SearchText+"%").
+				Or("UPPER(array_to_string(tags, ',')) LIKE UPPER(?)", "%"+pageFilter.SearchText+"%"),
 		)
 	}
 	qry = qry.Where(filter)
 	var totalRows int64
-	result := qry.Model(&map_repo.Dlr{}).Where(filter).Count(&totalRows)
+	result := qry.Model(&map_repo.Page{}).Where(filter).Count(&totalRows)
 	if result.Error != nil {
-		dlrId, _ := ctx.Value(smodel.QueryKeyUid).(string)
-		go a.Log(context.Background(), me.NewLogData().GenerateLogData(pb_logging.LogType_LogTypeERROR, "GetDlrsByFilter", dlrId, result.Error.Error()))
+		pageId, _ := ctx.Value(smodel.QueryKeyUid).(string)
+		go a.Log(context.Background(), me.NewLogData().GenerateLogData(pb_logging.LogType_LogTypeERROR, "GetPagesByFilter", pageId, result.Error.Error()))
 		totalRows = 0
 	}
-	if dlrFilter.Limit != 0 {
-		qry = qry.Limit(dlrFilter.Limit)
+	if pageFilter.Limit != 0 {
+		qry = qry.Limit(pageFilter.Limit)
 	}
-	if dlrFilter.Offset != 0 {
-		qry = qry.Offset(dlrFilter.Offset)
+	if pageFilter.Offset != 0 {
+		qry = qry.Offset(pageFilter.Offset)
 	}
-	if dlrFilter.SortType != "" && dlrFilter.SortField != 0 {
-		sortStr := map_repo.DlrSortMap[dlrFilter.SortField]
-		if dlrFilter.SortType == "desc" || dlrFilter.SortType == "DESC" {
+	if pageFilter.SortType != "" && pageFilter.SortField != 0 {
+		sortStr := map_repo.PageSortMap[pageFilter.SortField]
+		if pageFilter.SortType == "desc" || pageFilter.SortType == "DESC" {
 			sortStr += " desc"
 		} else {
 			sortStr += " asc"
 		}
 		qry = qry.Order(sortStr)
 	}
-	result = qry.Find(&dlrsDbMapper)
+	result = qry.Find(&pagesDbMapper)
 	if result.Error != nil {
-		dlrId, _ := ctx.Value(smodel.QueryKeyUid).(string)
-		go a.Log(context.Background(), me.NewLogData().GenerateLogData(pb_logging.LogType_LogTypeERROR, "GetDlrsByFilter", dlrId, result.Error.Error()))
-		return me.Dlrs{}, result.Error
+		pageId, _ := ctx.Value(smodel.QueryKeyUid).(string)
+		go a.Log(context.Background(), me.NewLogData().GenerateLogData(pb_logging.LogType_LogTypeERROR, "GetPagesByFilter", pageId, result.Error.Error()))
+		return me.Pages{}, result.Error
 	}
-	return me.Dlrs{
-		Dlrs:      dlrsDbMapper.ToEntities(),
+	return me.Pages{
+		Pages:     pagesDbMapper.ToEntities(),
 		TotalRows: totalRows,
 	}, nil
 }
 
-// SaveDlr insert a new dlr or update the existing one in the database.
-func (a DbAdapter) SaveDlr(ctx context.Context, dlr me.Dlr) (me.Dlr, error) {
-	dlrDbMapper := map_repo.NewDlrFromEntity(dlr)
+// SavePage insert a new page or update the existing one in the database.
+func (a DbAdapter) SavePage(ctx context.Context, page me.Page) (me.Page, error) {
+	pageDbMapper := map_repo.NewPageFromEntity(page)
 	qry := a.DbClient
-	if dlr.Id.String() != "" && dlr.Id != (uuid.UUID{}) {
+	if page.Id.String() != "" && page.Id != (uuid.UUID{}) {
 		qry = qry.Omit("created_at")
 	}
-	dlrId, _ := ctx.Value(smodel.QueryKeyUid).(string)
-	if dlrDbMapper.ID != (uuid.UUID{}) {
-		dlrDbMapper.UpdatedBy, _ = uuid.Parse(dlrId)
+	pageId, _ := ctx.Value(smodel.QueryKeyUid).(string)
+	if pageDbMapper.ID != (uuid.UUID{}) {
+		pageDbMapper.UpdatedBy, _ = uuid.Parse(pageId)
 	} else {
-		dlrDbMapper.CreatedBy, _ = uuid.Parse(dlrId)
+		pageDbMapper.CreatedBy, _ = uuid.Parse(pageId)
 	}
-	result := qry.Save(&dlrDbMapper)
+	result := qry.Save(&pageDbMapper)
 	if result.Error != nil {
-		dlrId, _ := ctx.Value(smodel.QueryKeyUid).(string)
-		go a.Log(context.Background(), me.NewLogData().GenerateLogData(pb_logging.LogType_LogTypeERROR, "SaveDlr", dlrId, result.Error.Error()))
-		return me.Dlr{}, result.Error
+		pageId, _ := ctx.Value(smodel.QueryKeyUid).(string)
+		go a.Log(context.Background(), me.NewLogData().GenerateLogData(pb_logging.LogType_LogTypeERROR, "SavePage", pageId, result.Error.Error()))
+		return me.Page{}, result.Error
 	}
-	return *dlrDbMapper.ToEntity(), nil
+	return *pageDbMapper.ToEntity(), nil
 }
 
-// DeleteDlr soft-deletes the given dlr in the database.
-func (a DbAdapter) DeleteDlr(ctx context.Context, dlr me.Dlr) (me.Dlr, error) {
-	dlrDbMapper := map_repo.NewDlrFromEntity(dlr)
-	dlrId, _ := ctx.Value(smodel.QueryKeyUid).(string)
-	dlrDbMapper.DeletedBy, _ = uuid.Parse(dlrId)
-	result := a.DbClient.Delete(&dlrDbMapper)
+// DeletePage soft-deletes the given page in the database.
+func (a DbAdapter) DeletePage(ctx context.Context, page me.Page) (me.Page, error) {
+	pageDbMapper := map_repo.NewPageFromEntity(page)
+	pageId, _ := ctx.Value(smodel.QueryKeyUid).(string)
+	pageDbMapper.DeletedBy, _ = uuid.Parse(pageId)
+	result := a.DbClient.Delete(&pageDbMapper)
 	if result.Error != nil {
-		dlrId, _ := ctx.Value(smodel.QueryKeyUid).(string)
-		go a.Log(context.Background(), me.NewLogData().GenerateLogData(pb_logging.LogType_LogTypeERROR, "DeleteDlr", dlrId, result.Error.Error()))
-		return me.Dlr{}, result.Error
+		pageId, _ := ctx.Value(smodel.QueryKeyUid).(string)
+		go a.Log(context.Background(), me.NewLogData().GenerateLogData(pb_logging.LogType_LogTypeERROR, "DeletePage", pageId, result.Error.Error()))
+		return me.Page{}, result.Error
 	}
-	return *dlrDbMapper.ToEntity(), nil
+	return *pageDbMapper.ToEntity(), nil
 }
