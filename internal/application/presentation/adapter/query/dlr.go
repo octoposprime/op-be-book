@@ -6,7 +6,7 @@ import (
 	me "github.com/octoposprime/op-be-book/internal/domain/model/entity"
 )
 
-// GetDlrsByFilter returns the dlrs that match the given filter.
-func (a QueryAdapter) GetDlrsByFilter(ctx context.Context, dlrFilter me.DlrFilter) (me.Dlrs, error) {
-	return a.Service.GetDlrsByFilter(ctx, dlrFilter)
+// GetPagesByFilter returns the pages that match the given filter.
+func (a QueryAdapter) GetPagesByFilter(ctx context.Context, pageFilter me.PageFilter) (me.Pages, error) {
+	return a.Service.GetPagesByFilter(ctx, pageFilter)
 }
