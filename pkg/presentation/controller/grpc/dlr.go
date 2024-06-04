@@ -4,41 +4,41 @@ import (
 	"context"
 
 	dto "github.com/octoposprime/op-be-book/pkg/presentation/dto"
-	pb_dlr "github.com/octoposprime/op-be-shared/pkg/proto/pb/dlr"
+	pb_page "github.com/octoposprime/op-be-shared/pkg/proto/pb/page"
 )
 
-// GetDlrsByFilter returns the dlrs that match the given filter.
-func (a *Grpc) GetDlrsByFilter(ctx context.Context, filter *pb_dlr.DlrFilter) (*pb_dlr.Dlrs, error) {
-	dlrs, err := a.queryHandler.GetDlrsByFilter(ctx, *dto.NewDlrFilter(filter).ToEntity())
-	return dto.NewDlrFromEntities(dlrs).ToPbs(), err
+// GetPagesByFilter returns the pages that match the given filter.
+func (a *Grpc) GetPagesByFilter(ctx context.Context, filter *pb_page.PageFilter) (*pb_page.Pages, error) {
+	pages, err := a.queryHandler.GetPagesByFilter(ctx, *dto.NewPageFilter(filter).ToEntity())
+	return dto.NewPageFromEntities(pages).ToPbs(), err
 }
 
-// CreateDlr sends the given dlr to the application layer for creating new dlr.
-func (a *Grpc) CreateDlr(ctx context.Context, dlr *pb_dlr.Dlr) (*pb_dlr.Dlr, error) {
-	data, err := a.commandHandler.CreateDlr(ctx, *dto.NewDlr(dlr).ToEntity())
-	return dto.NewDlrFromEntity(data).ToPb(), err
+// CreatePage sends the given page to the application layer for creating new page.
+func (a *Grpc) CreatePage(ctx context.Context, page *pb_page.Page) (*pb_page.Page, error) {
+	data, err := a.commandHandler.CreatePage(ctx, *dto.NewPage(page).ToEntity())
+	return dto.NewPageFromEntity(data).ToPb(), err
 }
 
-// UpdateDlrBase sends the given dlr to the application layer for updating dlr's base values.
-func (a *Grpc) UpdateDlrBase(ctx context.Context, dlr *pb_dlr.Dlr) (*pb_dlr.Dlr, error) {
-	data, err := a.commandHandler.UpdateDlrBase(ctx, *dto.NewDlr(dlr).ToEntity())
-	return dto.NewDlrFromEntity(data).ToPb(), err
+// UpdatePageBase sends the given page to the application layer for updating page's base values.
+func (a *Grpc) UpdatePageBase(ctx context.Context, page *pb_page.Page) (*pb_page.Page, error) {
+	data, err := a.commandHandler.UpdatePageBase(ctx, *dto.NewPage(page).ToEntity())
+	return dto.NewPageFromEntity(data).ToPb(), err
 }
 
-// UpdateDlrCore sends the given dlr to the application layer for updating dlr's core values.
-func (a *Grpc) UpdateDlrCore(ctx context.Context, dlr *pb_dlr.Dlr) (*pb_dlr.Dlr, error) {
-	data, err := a.commandHandler.UpdateDlrCore(ctx, *dto.NewDlr(dlr).ToEntity())
-	return dto.NewDlrFromEntity(data).ToPb(), err
+// UpdatePageCore sends the given page to the application layer for updating page's core values.
+func (a *Grpc) UpdatePageCore(ctx context.Context, page *pb_page.Page) (*pb_page.Page, error) {
+	data, err := a.commandHandler.UpdatePageCore(ctx, *dto.NewPage(page).ToEntity())
+	return dto.NewPageFromEntity(data).ToPb(), err
 }
 
-// UpdateDlrStatus sends the given dlr to the application layer for updating dlr status.
-func (a *Grpc) UpdateDlrStatus(ctx context.Context, dlr *pb_dlr.Dlr) (*pb_dlr.Dlr, error) {
-	data, err := a.commandHandler.UpdateDlrStatus(ctx, *dto.NewDlr(dlr).ToEntity())
-	return dto.NewDlrFromEntity(data).ToPb(), err
+// UpdatePageStatus sends the given page to the application layer for updating page status.
+func (a *Grpc) UpdatePageStatus(ctx context.Context, page *pb_page.Page) (*pb_page.Page, error) {
+	data, err := a.commandHandler.UpdatePageStatus(ctx, *dto.NewPage(page).ToEntity())
+	return dto.NewPageFromEntity(data).ToPb(), err
 }
 
-// DeleteDlr sends the given dlr to the application layer for deleting data.
-func (a *Grpc) DeleteDlr(ctx context.Context, dlr *pb_dlr.Dlr) (*pb_dlr.Dlr, error) {
-	data, err := a.commandHandler.DeleteDlr(ctx, *dto.NewDlr(dlr).ToEntity())
-	return dto.NewDlrFromEntity(data).ToPb(), err
+// DeletePage sends the given page to the application layer for deleting data.
+func (a *Grpc) DeletePage(ctx context.Context, page *pb_page.Page) (*pb_page.Page, error) {
+	data, err := a.commandHandler.DeletePage(ctx, *dto.NewPage(page).ToEntity())
+	return dto.NewPageFromEntity(data).ToPb(), err
 }
