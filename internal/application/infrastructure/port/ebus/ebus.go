@@ -13,6 +13,6 @@ type EBusPort interface {
 	// SetLogger sets logging call-back function
 	SetLogger(LogFunc func(ctx context.Context, logData *pb_logging.LogData) (*pb_logging.LoggingResult, error))
 
-	// Listen listens to the event bus and calls the given callBack function for each received dlr.
-	Listen(ctx context.Context, channelName string, callBack func(channelName string, dlr me.Dlr))
+	// Listen listens to the event bus and calls the given callBack function for each received page.
+	Listen(ctx context.Context, channelName string, callBack func(channelName string, page me.Page))
 }
