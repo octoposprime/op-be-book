@@ -5,85 +5,85 @@ import (
 
 	me "github.com/octoposprime/op-be-book/internal/domain/model/entity"
 	mo "github.com/octoposprime/op-be-book/internal/domain/model/object"
-	pb "github.com/octoposprime/op-be-shared/pkg/proto/pb/dlr"
+	pb "github.com/octoposprime/op-be-shared/pkg/proto/pb/page"
 	tuuid "github.com/octoposprime/op-be-shared/tool/uuid"
 )
 
-// Dlr is a struct that represents the ebus mapper of a dlr basic values.
-type Dlr struct {
-	proto *pb.Dlr
+// Page is a struct that represents the ebus mapper of a page basic values.
+type Page struct {
+	proto *pb.Page
 }
 
-// NewDlr creates a new *Dlr.
-func NewDlr(pb *pb.Dlr) *Dlr {
-	return &Dlr{
+// NewPage creates a new *Page.
+func NewPage(pb *pb.Page) *Page {
+	return &Page{
 		proto: pb,
 	}
 }
 
-// String returns a string representation of the Dlr.
-func (s *Dlr) String() string {
+// String returns a string representation of the Page.
+func (s *Page) String() string {
 	return fmt.Sprintf("Id: %v, "+
-		"DlrData: %v, "+
-		"DlrType: %v, "+
-		"DlrStatus: %v, "+
+		"PageData: %v, "+
+		"PageType: %v, "+
+		"PageStatus: %v, "+
 		"Tags: %v",
 		s.proto.Id,
-		s.proto.DlrData,
-		s.proto.DlrType,
-		s.proto.DlrStatus,
+		s.proto.PageData,
+		s.proto.PageType,
+		s.proto.PageStatus,
 		s.proto.Tags)
 }
 
-// NewDlrFromEntity creates a new *Dlr from entity.
-func NewDlrFromEntity(entity me.Dlr) *Dlr {
-	return &Dlr{
-		&pb.Dlr{
-			Id:        entity.Id.String(),
-			DlrData:   entity.DlrData,
-			DlrType:   pb.DlrType(entity.DlrType),
-			DlrStatus: pb.DlrStatus(entity.DlrStatus),
-			Tags:      entity.Tags,
+// NewPageFromEntity creates a new *Page from entity.
+func NewPageFromEntity(entity me.Page) *Page {
+	return &Page{
+		&pb.Page{
+			Id:         entity.Id.String(),
+			PageData:   entity.PageData,
+			PageType:   pb.PageType(entity.PageType),
+			PageStatus: pb.PageStatus(entity.PageStatus),
+			Tags:       entity.Tags,
 		},
 	}
 }
 
-// ToPb returns a protobuf representation of the Dlr.
-func (s *Dlr) ToPb() *pb.Dlr {
+// ToPb returns a protobuf representation of the Page.
+func (s *Page) ToPb() *pb.Page {
 	return s.proto
 }
 
-// ToEntity returns a entity representation of the Dlr.
-func (s *Dlr) ToEntity() *me.Dlr {
-	return &me.Dlr{
+// ToEntity returns a entity representation of the Page.
+func (s *Page) ToEntity() *me.Page {
+	return &me.Page{
 		Id: tuuid.FromString(s.proto.Id),
-		Dlr: mo.Dlr{
-			DlrData:   s.proto.DlrData,
-			DlrType:   mo.DlrType(s.proto.DlrType),
-			DlrStatus: mo.DlrStatus(s.proto.DlrStatus),
-			Tags:      s.proto.Tags,
+		Page: mo.Page{
+			PageData:   s.proto.PageData,
+			PageType:   mo.PageType(s.proto.PageType),
+			PageStatus: mo.PageStatus(s.proto.PageStatus),
+			Tags:       s.proto.Tags,
 		},
 	}
 }
 
-type Dlrs []*Dlr
+type Pages []*Page
 
-// NewDlrsFromEntities creates a new []*Dlr from entities.
-func NewDlrFromEntities(entities []me.Dlr) Dlrs {
-	dlrs := make([]*Dlr, len(entities))
+// NewPagesFromEntities creates a new []*Page from entities.
+func NewPageFromEntities(entities []me.Page) Pages {
+	pages := make([]*Page, len(entities))
 	for i, entity := range entities {
-		dlrs[i] = NewDlrFromEntity(entity)
+		pages[i] = NewPageFromEntity(entity)
 	}
-	return dlrs
+	return pages
 }
 
-// ToPbs returns a protobuf representation of the Dlrs.
-func (s Dlrs) ToPbs() *pb.Dlrs {
-	dlrs := make([]*pb.Dlr, len(s))
-	for i, dlr := range s {
-		dlrs[i] = dlr.ToPb()
+// ToPbs returns a protobuf representation of the Pages.
+func (s Pages) ToPbs() *pb.Pages {
+	pages := make([]*pb.Page, len(s))
+	for i, page := range s {
+		pages[i] = page.ToPb()
 	}
-	return &pb.Dlrs{
-		Dlrs: dlrs,
+	return &pb.Pages{
+		Pages: pages,
 	}
 }

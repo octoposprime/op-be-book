@@ -4,8 +4,8 @@ import (
 	mo "github.com/octoposprime/op-be-book/internal/domain/model/object"
 )
 
-var DlrSortMap map[mo.DlrSortField]string = map[mo.DlrSortField]string{
-	mo.DlrSortFieldId:        "id",
-	mo.DlrSortFieldCreatedAt: "created_at",
-	mo.DlrSortFieldUpdatedAt: "updated_at",
+var PageSortMap map[mo.PageSortField]string = map[mo.PageSortField]string{
+	mo.PageSortFieldId:        "id",
+	mo.PageSortFieldCreatedAt: "created_at",
+	mo.PageSortFieldUpdatedAt: "updated_at",
 }
